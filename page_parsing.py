@@ -18,10 +18,10 @@ def get_links_from(channel, pages):
     wb_data = requests.get(list_view, headers = header)
     time.sleep(1)
     soup = BeautifulSoup(wb_data.text, 'lxml')
-    # print(soup.find('div',class_='i_w'))
-    if soup.find('dd', class_='current'):
+    # print(soup.find('div',class_='searchform_div')('input')[0]['placeholder'])
+    if soup.find('div',class_='searchform_div'):
         try:
-            nav = soup.find('dd', class_='current').text
+            nav = soup.find('div',class_='searchform_div')('input')[0]['placeholder']
         except:
             nav = None
     else:
@@ -55,10 +55,8 @@ def get_links_from(channel, pages):
             except:
                 print('数据出错')
             try:
-                if comment.isdigit() and likes.isdigit():
-                        print({'url':item_link, 'title':title, 'comment':int(comment),'likes':int(likes), 'series':nav})
-                else:
-                    pass
+                print({'url':item_link, 'title':title, 'comment':int(comment),\
+                                         'likes':int(likes), 'series':nav})
             except:
                 print('标题出错')
     else:
